@@ -1,0 +1,49 @@
+{
+  "id": "grupo-mone",
+  "name": "Mone",
+  "type": "group",
+  "pieces": [
+    {
+      "id": "mone-1",
+      "name": "Mone 1",
+      "file": "mone-1.svg"
+    },
+    {
+      "id": "mone-2",
+      "name": "Mone 2",
+      "file": "mone-2.svg"
+    },
+    {
+      "id": "mone-3",
+      "name": "Mone 3",
+      "file": "mone-3.svg"
+    },
+    {
+      "id": "mone-4",
+      "name": "Mone 4",
+      "file": "mone-4.svg"
+    },
+    {
+      "id": "mone-5",
+      "name": "Mone 5",
+      "file": "mone-5.svg"
+    },
+    {
+      "id": "mone-6",
+      "name": "Mone 6",
+      "file": "mone-6.svg"
+    }
+  ],
+  "layout": {
+    "columns": 3,
+    "rows": 2,
+    "order": [
+      "mone-1",
+      "mone-2",
+      "mone-3",
+      "mone-4",
+      "mone-5",
+      "mone-6"
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "grupo-otomi",
+  "name": "Otomi",
+  "type": "group",
+  "pieces": [
+    {
+      "id": "otomi-1",
+      "name": "Otomi 1",
+      "file": "otomi-1.svg"
+    },
+    {
+      "id": "otomi-2",
+      "name": "Otomi 2",
+      "file": "otomi-2.svg"
+    },
+    {
+      "id": "otomi-3",
+      "name": "Otomi 3",
+      "file": "otomi-3.svg"
+    },
+    {
+      "id": "otomi-4",
+      "name": "Otomi 4",
+      "file": "otomi-4.svg"
+    }
+  ],
+  "layout": {
+    "columns": 2,
+    "rows": 2,
+    "order": [
+      "otomi-1",
+      "otomi-2",
+      "otomi-3",
+      "otomi-4"
+    ]
+  }
+}

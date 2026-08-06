@@ -1,0 +1,37 @@
+{
+  "id": "grupo-koipond",
+  "name": "Koipond",
+  "type": "group",
+  "pieces": [
+    {
+      "id": "koipond-1",
+      "name": "Koipond 1",
+      "file": "koipond-1.svg"
+    },
+    {
+      "id": "koipond-2",
+      "name": "Koipond 2",
+      "file": "koipond-2.svg"
+    },
+    {
+      "id": "koipond-3",
+      "name": "Koipond 3",
+      "file": "koipond-3.svg"
+    },
+    {
+      "id": "koipond-4",
+      "name": "Koipond 4",
+      "file": "koipond-4.svg"
+    }
+  ],
+  "layout": {
+    "columns": 2,
+    "rows": 2,
+    "order": [
+      "koipond-1",
+      "koipond-2",
+      "koipond-3",
+      "koipond-4"
+    ]
+  }
+}

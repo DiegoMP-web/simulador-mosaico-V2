@@ -1,0 +1,31 @@
+{
+  "id": "grupo-alen",
+  "name": "Alen",
+  "type": "group",
+  "pieces": [
+    {
+      "id": "alen-uno",
+      "name": "Alen Uno",
+      "file": "alen-uno.svg"
+    },
+    {
+      "id": "alen-due",
+      "name": "Alen Due",
+      "file": "alen-due.svg"
+    },
+    {
+      "id": "alen-tre",
+      "name": "Alen Tre",
+      "file": "alen-tre.svg"
+    }
+  ],
+  "layout": {
+    "columns": 2,
+    "rows": 2,
+    "order": [
+      "alen-uno",
+      "alen-due",
+      "alen-tre"
+    ]
+  }
+}

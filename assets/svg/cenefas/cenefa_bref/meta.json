@@ -1,0 +1,18 @@
+{
+  "id": "cenefa_azul_01",
+  "name": "Cenefa Azul 01",
+  "shape": "cenefa",
+  "subcat": "clasicos",
+  "unit": {
+    "type": "frame_simple",
+    "parts": {
+      "corner": "assets/cenefas/cenefa_azul_01/corner.svg",
+      "edge": "assets/cenefas/cenefa_azul_01/edge.svg"
+    },
+    "constraints": { "minWidth": 3, "minHeight": 3 },
+    "render": {
+      "showJoints": true,
+      "jointWidth": 2
+    }
+  }
+}

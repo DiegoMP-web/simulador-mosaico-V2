@@ -1,0 +1,43 @@
+{
+  "id": "grupo-zena",
+  "name": "Zena",
+  "type": "group",
+  "pieces": [
+    {
+      "id": "zena-1",
+      "name": "Zena 1",
+      "file": "zena-1.svg"
+    },
+    {
+      "id": "zena-2",
+      "name": "Zena 2",
+      "file": "zena-2.svg"
+    },
+    {
+      "id": "zena-3",
+      "name": "Zena 3",
+      "file": "zena-3.svg"
+    },
+    {
+      "id": "zena-4",
+      "name": "Zena 4",
+      "file": "zena-4.svg"
+    },
+    {
+      "id": "zena-5",
+      "name": "Zena 5",
+      "file": "zena-5.svg"
+    }
+  ],
+  "layout": {
+    "columns": 3,
+    "rows": 2,
+    "order": [
+      "zena-1",
+      "zena-2",
+      "zena-3",
+      "zena-4",
+      "zena-5"
+    ]
+  }
+}
