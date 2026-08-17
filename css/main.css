@@ -1,0 +1,842 @@
+:root{
+  --bg:#f3f3f3;
+  --card:#ffffff;
+  --text:#222;
+  --muted:#6f6f6f;
+  --border:#e3e3e3;
+  --shadow: 0 6px 20px rgba(0,0,0,.08);
+  --radius:16px;
+}
+
+*{ box-sizing:border-box; }
+
+html, body { height:100%; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+}
+
+.brand__title{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.brand__subtitle{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.header-actions{
+  display:flex;
+  gap:10px;
+}
+
+.app-layout{
+  display:grid;
+  grid-template-columns: 340px 1fr;
+  gap:16px;
+  padding:16px;
+}
+
+.sidebar{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.panel{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding:14px;
+}
+
+.panel__title{
+  margin:0 0 10px;
+  font-size:14px;
+  font-weight:800;
+}
+
+.input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  outline:none;
+  font-size:14px;
+  background:#fff;
+}
+
+.input:focus{
+  border-color:#c9c9c9;
+}
+
+.hidden{ display:none !important; }
+
+.btn{
+  border-radius:12px;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  background:#fff;
+  cursor:pointer;
+  font-weight:700;
+  font-size:14px;
+}
+
+.btn:hover{ filter:brightness(.98); }
+
+.btn-primary{
+  background:#1f1f1f;
+  color:#fff;
+  border-color:#1f1f1f;
+}
+
+.btn-outline{
+  background:#fff;
+  color:#111;
+}
+
+.w-full{ width:100%; }
+
+.btn-group{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.hint{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.35;
+}
+
+.hint.subtle{
+  margin-top:8px;
+  opacity:.9;
+}
+
+.preview-area{
+  min-height: calc(100vh - 80px);
+}
+
+.preview-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding:16px;
+}
+
+.preview-title{
+  margin:0 0 12px;
+  font-weight:900;
+  text-align:center;
+}
+
+.preview-wrapper{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  /* antes se cortaba por overflow hidden */
+  overflow: auto;
+
+  /* opcional: que no se vea scroll horizontal */
+  overflow-x: hidden;
+}
+
+/* Layout especial para modo tapete (editor + retícula) */
+.tapete-layout{
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.tile-editor{
+  width: 340px;
+  height: 340px;
+  background: #fff;
+  border: 1px solid var(--border, #e3e3e3);
+  border-radius: 16px;
+  box-shadow: var(--shadow, 0 6px 20px rgba(0,0,0,.08));
+  padding: 10px;
+  overflow: hidden;
+}
+
+.tile-editor svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.preview-grid{
+  /* ✅ Volvemos al grid dinámico para 1/4/24 */
+  display: grid;
+  grid-template-rows: repeat(var(--grid-rows, 2), 1fr);
+  grid-template-columns: repeat(var(--grid-cols, 2), 1fr);
+
+  /* boquilla/separación entre piezas */
+  gap: var(--grout, 5px);
+  padding: var(--grout-pad, 5px);
+  background: var(--grout-color, #CAC6BF);
+  border-radius: 0px;
+
+  /* tamaño y centrado visual */
+  width: min(900px, 100%);
+  margin: 0 auto;
+
+  /* el grid se adapta al alto del contenedor (preview-wrapper) */
+  height: 100%;
+  max-height: 100%;
+}
+
+/* Cada pieza (contenedor del SVG) */
+.tile{
+  background: #CAC6BF;
+  border-radius: 0px;
+  overflow: hidden; /* clave para que el SVG no se “coma” la boquilla */
+}
+
+.tile svg{
+  display:block;
+}
+
+
+.empty-state{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.preview-meta{
+  margin-top:10px;
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Paleta */
+.palette{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  /* Mantener la paleta visible sin que la página crezca demasiado */
+  max-height: 160px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.color-swatch{
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  border:2px solid rgba(0,0,0,.12);
+  cursor:pointer;
+  padding:0;
+  outline:none;
+}
+
+.color-swatch.active{
+  border-color:#111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.12);
+}
+
+/* Grid de modelos */
+/* Evita scroll lateral en la lista de modelos */
+.model-grid{
+  overflow-x: hidden;      /* 👈 clave */
+  overflow-y: auto;
+  max-width: 100%;
+}
+
+/* Evita que las tarjetas empujen el ancho */
+.model-card{
+  min-width: 0;
+}
+
+/* Evita que el nombre genere overflow */
+.model-name{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Evita que el SVG se desborde */
+.model-thumb{
+  overflow: hidden;
+}
+
+.model-thumb svg{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+/* Responsive */
+@media (max-width: 980px){
+  .app-layout{
+    grid-template-columns: 1fr;
+  }
+}
+.category-tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.tab{
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid #e3e3e3;
+  background:#fff;
+  cursor:pointer;
+  font-weight:800;
+  font-size:12px;
+}
+
+.tab.active{
+  background:#1f1f1f;
+  color:#fff;
+  border-color:#1f1f1f;
+}
+/* GRID de modelos: 4 columnas + scroll */
+.model-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+
+  max-height: 400px;     /* ajusta a gusto */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;    /* para que no tape la scrollbar */
+  max-width: 100%;
+}
+
+/* que las tarjetas se compacten bien */
+.model-card{
+  padding: 10px;
+  min-width: 0;
+}
+
+.model-name{
+  font-size: 12px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.model-thumb{ overflow: hidden; }
+.model-thumb svg{ max-width: 100%; max-height: 100%; display:block; }
+
+/* responsive */
+@media (max-width: 980px){
+  .model-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px){
+  .model-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* Barra de información entre mosaico y paleta */
+.info-bar{
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.info-title{
+  font-weight: 900;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.info-steps{
+  font-size: 14px;
+  color: #333;
+  line-height: 1.35;
+}
+
+.info-steps ol{ margin: 0 0 0 18px; padding: 0; }
+
+.info-stats{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 10px;
+}
+
+.info-pill{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fafafa;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.swatch-mini{
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 2px solid rgba(0,0,0,.15);
+}
+
+.used-colors{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top: 10px;
+}
+
+.used-chip{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.used-chip .chip-text{
+  max-width: 260px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Panel inline debajo del preview */
+.panel-inline{
+  margin-top: 14px;
+  box-shadow: none;
+}
+
+.panel-inline__head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+
+.hint-inline{
+  margin:0;
+  font-size:12px;
+}
+
+/* Paleta más grande */
+.palette-large{
+  gap:10px;
+}
+
+.palette-large .color-swatch{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+/* En móvil aún más usable */
+@media (max-width: 768px){
+  .palette-large .color-swatch{
+    width: 38px;
+    height: 38px;
+  }
+  .panel-inline__head{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}
+
+/* ====== MOSAICO: compacto, centrado y responsivo ====== */
+:root{
+  --grout: 5px;
+  --grout-pad: 5px;
+  --grout-color: #d9d9d9;
+
+  --tile-4: 220px;
+  --tile-24: 100px;
+  --tile-1: 380px;
+}
+
+/* Wrapper: que permita centrar y no recorte raro */
+.preview-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grid base */
+.preview-grid{
+  display: grid;
+  gap: var(--grout);
+  padding: var(--grout-pad);
+  background: var(--grout-color);
+  border-radius: 12px;
+
+  /* lo define el contenido */
+  width: fit-content;
+  height: fit-content;
+  max-width: 100%;
+  max-height: 100%;
+
+  margin: 0 auto;
+}
+
+/* Define filas/cols y tamaño por vista usando variables ya existentes */
+body[data-view="4"] .preview-grid{
+  --grid-cols: 2;
+  --grid-rows: 2;
+  --tile-size: var(--tile-4);
+}
+
+body[data-view="24"] .preview-grid{
+  --grid-cols: 6;
+  --grid-rows: 4;
+  --tile-size: var(--tile-24);
+}
+
+body[data-view="1"] .preview-grid{
+  --grid-cols: 1;
+  --grid-rows: 1;
+  --tile-size: var(--tile-1);
+}
+
+/* IMPORTANTÍSIMO: celdas de tamaño fijo (no 1fr) */
+.preview-grid{
+  grid-template-columns: repeat(var(--grid-cols, 2), var(--tile-size, 220px));
+  grid-template-rows: repeat(var(--grid-rows, 2), var(--tile-size, 220px));
+}
+
+/* Piezas ocupan su celda */
+.tile{
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  background: #CAC6BF;
+  display: flex;
+}
+
+.tile svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ====== Layout responsive real (arregla tu media query duplicado) ====== */
+@media (max-width: 1200px){
+  .app-layout{ grid-template-columns: 320px 1fr; }
+  :root{ --tile-4: 190px; --tile-24: 90px; --tile-1: 330px; }
+}
+
+@media (max-width: 980px){
+  .app-layout{ grid-template-columns: 1fr; }
+  .preview-area{ min-height: auto; }
+  .preview-wrapper{ height: clamp(260px, 42vh, 420px); }
+  :root{ --tile-4: 170px; --tile-24: 75px; --tile-1: 290px; }
+}
+
+/* Paleta */
+.palette{
+  max-height: 190px;
+  overflow-y: auto;
+}
+
+/* ===== HEX: fondo general (no por pieza) + sin encimarse ===== */
+
+/* Fondo/boquilla SOLO en el contenedor */
+.preview-grid{
+  background: #CAC6BF !important;  /* tu gris */
+  gap: 2px !important;             /* boquilla fina */
+  padding: 0px !important;         /* marco fino */
+  border-radius: 0 !important;
+}
+
+/* Cada pieza NO tiene fondo (evita cuadrados encima) */
+.tile{
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important; /* importante para hex */
+}
+
+/* El SVG sigue llenando su celda */
+.tile svg{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+
+
+/* Subcategorías */
+.subcategory-tabs{ margin-top:8px; }
+
+
+
+/* --- Layout fixes: help in sidebar + stats between preview and palette --- */
+.panel-help .help-steps ol{
+  margin: 0;
+  padding-left: 18px;
+}
+.panel-help .help-steps li{
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.3;
+}
+.info-bar--stats{
+  margin: 12px 0 10px;
+}
+
+/* --- Tapetes: modelos usados --- */
+.tapete-used{ margin-top:14px; }
+.tapete-used__title{ margin:10px 2px 8px; font-size:13px; color:var(--muted,#6f6f6f); font-weight:700; }
+.model-grid--used{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; }
+.model-card.used-active{ outline:2px solid #111; outline-offset:2px; }
+
+
+/* =========================================================
+   TDM 2026 — Layout estable por modo
+   ========================================================= */
+.tapete-leftcol { display: none; }
+.tapete-editor-title { margin: 0 0 8px; font-size: 18px; font-weight: 700; }
+.tapete-cell-actions { width: 100%; }
+.tapete-cell-actions .btn { margin-top: 0; }
+.tapete-cell-actions .hint { margin-top: 7px; line-height: 1.35; }
+
+/* Modo normal: no reservar espacio para el editor de tapetes */
+body:not(.is-tapete-mode) .tapete-layout { display: block; width: 100%; }
+body:not(.is-tapete-mode) .preview-grid { margin-inline: auto; }
+
+/* Modo Tapetes: editor fijo a la izquierda y retícula completa a la derecha */
+body.is-tapete-mode .view-controls { display: none; }
+body.is-tapete-mode .tapete-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) 560px;
+  gap: 30px;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+}
+body.is-tapete-mode .tapete-leftcol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+body.is-tapete-mode .tile-editor {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+body.is-tapete-mode .preview-grid {
+  box-sizing: border-box;
+  width: 560px !important;
+  height: 560px !important;
+  min-width: 560px;
+  max-width: 560px !important;
+  margin: 0 !important;
+}
+body.is-tapete-mode .tapete-used {
+  width: 100%;
+  max-width: none;
+  margin-top: 2px;
+}
+body.is-tapete-mode .model-grid--used {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 7px;
+  overflow: hidden;
+}
+body.is-tapete-mode .model-grid--used .model-card {
+  min-width: 0;
+  padding: 5px;
+}
+body.is-tapete-mode .model-grid--used .name,
+body.is-tapete-mode .model-grid--used .model-name { display: none; }
+body.is-tapete-mode .model-grid--used .thumb,
+body.is-tapete-mode .model-grid--used .model-thumb { aspect-ratio: 1 / 1; }
+
+@media (max-width: 1250px) {
+  body.is-tapete-mode .tapete-layout {
+    grid-template-columns: minmax(260px, 320px) minmax(420px, 520px);
+    gap: 20px;
+  }
+  body.is-tapete-mode .preview-grid {
+    width: min(520px, 100%) !important;
+    height: auto !important;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 900px) {
+  body.is-tapete-mode .tapete-layout { grid-template-columns: 1fr; }
+  body.is-tapete-mode .tapete-leftcol { max-width: 520px; margin: 0 auto; }
+  body.is-tapete-mode .preview-grid { margin: 0 auto !important; }
+}
+
+/* Corrección de estructura: información y paleta siempre debajo de la vista */
+.preview-card > .info-bar,
+.preview-card > .panel-inline {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.preview-card > .panel-inline {
+  margin-top: 12px;
+}
+
+.preview-wrapper {
+  width: 100%;
+}
+
+body.is-tapete-mode .tapete-layout {
+  align-items: start;
+}
+
+/* =========================================================
+   TDM 2026 — Módulo Grupos (3 a 6 piezas)
+   ========================================================= */
+.group-layout { display: none; width: 100%; }
+.group-section-title { margin: 0 0 10px; font-size: 18px; font-weight: 800; }
+.group-leftcol,
+.group-previewcol { min-width: 0; }
+
+body.is-group-mode .view-controls { display: none; }
+body.is-group-mode .tapete-layout { display: none !important; }
+body.is-group-mode .group-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) minmax(430px, 650px);
+  gap: 30px;
+  align-items: start;
+  justify-content: center;
+}
+
+.group-editor {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  overflow: hidden;
+}
+.group-editor svg { width: 100%; height: 100%; display: block; }
+
+.group-piece-panel { margin-top: 14px; }
+.group-piece-panel__title { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight: 800; }
+.group-piece-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.group-piece-card {
+  min-width: 0;
+  padding: 7px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+}
+.group-piece-card.active {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+.group-piece-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f7f7f7;
+  border-radius: 8px;
+}
+.group-piece-thumb svg { width: 100%; height: 100%; display: block; }
+.group-piece-label {
+  display: block;
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.group-preview {
+  width: min(650px, 100%);
+  min-height: 260px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #cac6bf;
+  overflow: hidden;
+}
+.group-preview svg { width: 100%; height: 100%; display: block; }
+
+body.is-group-mode .preview-wrapper { overflow-x: auto; }
+
+@media (max-width: 1180px) {
+  body.is-group-mode .group-layout {
+    grid-template-columns: minmax(270px, 320px) minmax(380px, 520px);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  body.is-group-mode .group-layout { grid-template-columns: 1fr; }
+  body.is-group-mode .group-leftcol,
+  body.is-group-mode .group-previewcol { max-width: 560px; margin: 0 auto; width: 100%; }
+  .group-preview { min-height: 320px; }
+}
+
+/* Grupos en construcción: permite previsualizar mientras se cargan las piezas. */
+.group-draft-note {
+  grid-column: 1 / -1;
+  padding: 8px 10px;
+  margin-bottom: 2px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  background: #faf9f7;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+}
