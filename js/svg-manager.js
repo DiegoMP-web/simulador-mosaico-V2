@@ -44,6 +44,7 @@ window.MOSAIC_MODELS = [
   { id: "cosmo", name: "Cosmo", filename: "cosmo.svg", category: "CLASICOS", rotate: false },
   { id: "cosmos-grand", name: "Cosmos Grand", filename: "cosmos-grand.svg", category: "CLASICOS", rotate: false },
   { id: "cronos", name: "Cronos", filename: "cronos.svg", category: "CLASICOS", rotate: false },
+   { id: "croce-milan", name: "Croce Milan", filename: "croce-milan.svg", category: "CLASICOS", rotate: false },
   { id: "circe", name: "Circe", filename: "circe.svg", category: "GEOMETRICOS", rotate: false },
   { id: "cervino", name: "Cervino", filename: "cervino.svg", category: "GEOMETRICOS", rotate: false },
   { id: "citta", name: "Citta", filename: "citta.svg", category: "ORGANICOS", rotate: false },
